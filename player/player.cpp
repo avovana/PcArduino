@@ -116,6 +116,8 @@ Player::Player(QWidget *parent)
     controls->setVolume(player->volume());
     controls->setMuted(controls->isMuted());
 
+    //connect(&timer, SIGNAL(timeout()), player, SLOT(pause()));
+
     connect(controls, SIGNAL(play()), player, SLOT(play()));
     connect(controls, SIGNAL(pause()), player, SLOT(pause()));
     connect(controls, SIGNAL(stop()), player, SLOT(stop()));
@@ -192,10 +194,29 @@ Player::~Player()
 {
 }
 
+void Player::receivedData(const QByteArray &data)
+{
+    QString receivedData(data);
+    int time;
+
+    if(receivedData.startsWith("pause"))
+    {
+        receivedData.remove("pause");
+        time = receivedData.toInt();
+    }
+
+    QTimer::singleShot(time * 1000, player, SLOT(pause()));
+}
+
 void Player::open()
 {
     QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
     addToPlaylist(fileNames);
+}
+
+void Player::pauseLater(int interval)
+{
+  timer.start(interval);
 }
 
 void Player::addToPlaylist(const QStringList& fileNames)

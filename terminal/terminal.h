@@ -62,6 +62,9 @@ public:
     explicit Terminal(QWidget *parent = 0);
     ~Terminal();
 
+signals:
+    void writtenData(const QByteArray &data);
+
 private slots:
     void openSerialPort();
     void closeSerialPort();

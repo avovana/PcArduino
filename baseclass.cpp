@@ -9,6 +9,7 @@ BaseClass::BaseClass(QWidget *parent) :
 
     terminal.show();
     player.show();
+    connect(&terminal, &Terminal::writtenData, &player, &Player::receivedData);
 }
 
 BaseClass::~BaseClass()

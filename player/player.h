@@ -46,6 +46,7 @@
 #include <QWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 class QAbstractItemView;
@@ -72,8 +73,12 @@ public:
 signals:
     void fullScreenChanged(bool fullScreen);
 
+public slots:
+    void receivedData(const QByteArray &data);
+
 private slots:
     void open();
+    void pauseLater(int interval);
     void durationChanged(qint64 duration);
     void positionChanged(qint64 progress);
     void metaDataChanged();
@@ -122,6 +127,7 @@ private:
     QString trackInfo;
     QString statusInfo;
     qint64 duration;
+    QTimer timer;
 };
 
 #endif // PLAYER_H
