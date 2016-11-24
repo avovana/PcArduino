@@ -7,7 +7,8 @@ BaseClass::BaseClass(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    s.show();
+    terminal.show();
+    player.show();
 }
 
 BaseClass::~BaseClass()

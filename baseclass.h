@@ -1,6 +1,7 @@
 #ifndef BASECLASS_H
 #define BASECLASS_H
 #include "terminal/terminal.h"
+#include "player/player.h"
 
 #include <QMainWindow>
 
@@ -17,7 +18,8 @@ public:
     ~BaseClass();
 
 private:
-    Terminal s;
+    Terminal terminal;
+    Player player;
     Ui::BaseClass *ui;
 };
 
