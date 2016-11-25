@@ -47,6 +47,7 @@
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QTimer>
+#include <QLineEdit>
 
 QT_BEGIN_NAMESPACE
 class QAbstractItemView;
@@ -112,6 +113,7 @@ private:
     QLabel *coverLabel;
     QSlider *slider;
     QLabel *labelDuration;
+    QLineEdit *pauseInterval_lnedit;
     QPushButton *fullScreenButton;
 #ifndef PLAYER_NO_COLOROPTIONS
     QPushButton *colorButton;

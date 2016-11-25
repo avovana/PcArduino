@@ -135,7 +135,6 @@ void Terminal::about()
 void Terminal::writeData(const QByteArray &data)
 {
     serial->write(data);
-    emit writtenData(data);
 }
 //! [6]
 
@@ -144,6 +143,7 @@ void Terminal::readData()
 {
     QByteArray data = serial->readAll();
     console->putData(data);
+    emit writtenData(data);
 }
 //! [7]
 
