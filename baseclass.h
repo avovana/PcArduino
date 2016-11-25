@@ -18,9 +18,9 @@ public:
     ~BaseClass();
 
 private:
-    Terminal terminal;
-    Player player;
-    Ui::BaseClass *ui;
+    Terminal        terminal;
+    Player          player;
+    Ui::BaseClass  *ui;
 };
 
 #endif // BASECLASS_H

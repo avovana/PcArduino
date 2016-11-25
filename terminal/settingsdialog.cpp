@@ -38,6 +38,7 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QIntValidator>
 #include <QLineEdit>
+#include <QDir>
 
 QT_USE_NAMESPACE
 
@@ -48,6 +49,12 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui(new Ui::SettingsDialog)
 {
     ui->setupUi(this);
+
+    iniFile = new QSettings(QDir::currentPath() + "/config/SerialPort.ini", QSettings::IniFormat, this);
+
+    iniFile->beginGroup("COMPORTS");
+    iniFile->setValue("COMPORT", "COM5");
+    iniFile->endGroup();
 
     intValidator = new QIntValidator(0, 4000000, this);
 
@@ -175,7 +182,11 @@ void SettingsDialog::fillPortsInfo()
 
 void SettingsDialog::updateSettings()
 {
-    currentSettings.name = ui->serialPortInfoListBox->currentText();
+    QString comportUI = ui->serialPortInfoListBox->currentText();
+
+    iniFile->beginGroup("COMPORTS");
+    currentSettings.name = iniFile->value("COMPORT", comportUI).toString();
+    iniFile->endGroup();
 
     if (ui->baudRateBox->currentIndex() == 4) {
         currentSettings.baudRate = ui->baudRateBox->currentText().toInt();

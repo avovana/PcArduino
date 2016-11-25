@@ -37,6 +37,7 @@
 
 #include <QDialog>
 #include <QtSerialPort/QSerialPort>
+#include <QSettings>
 
 QT_USE_NAMESPACE
 
@@ -90,6 +91,7 @@ private:
     Ui::SettingsDialog *ui;
     Settings currentSettings;
     QIntValidator *intValidator;
+    QSettings      *iniFile;            // файл для хранения параметров
 };
 
 #endif // SETTINGSDIALOG_H
