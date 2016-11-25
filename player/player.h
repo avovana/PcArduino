@@ -48,6 +48,7 @@
 #include <QMediaPlaylist>
 #include <QTimer>
 #include <QLineEdit>
+#include <QSettings>
 
 QT_BEGIN_NAMESPACE
 class QAbstractItemView;
@@ -76,6 +77,7 @@ signals:
 
 public slots:
     void receivedData(const QByteArray &data);
+    void receivedMessage(const QString &message);
 
 private slots:
     void open();
@@ -130,6 +132,7 @@ private:
     QString statusInfo;
     qint64 duration;
     QTimer timer;
+    QSettings      *iniFile;            // файл для хранения параметров
 };
 
 #endif // PLAYER_H

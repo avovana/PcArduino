@@ -49,6 +49,7 @@
 #include <QVideoProbe>
 #include <QMediaMetaData>
 #include <QtWidgets>
+#include <QDebug>
 
 Player::Player(QWidget *parent)
     : QWidget(parent)
@@ -65,6 +66,37 @@ Player::Player(QWidget *parent)
     playlist = new QMediaPlaylist();
     player->setPlaylist(playlist);
 //! [create-objs]
+
+    iniFile = new QSettings(QDir::currentPath() + "/config/VideoFiles.ini", QSettings::IniFormat, this);
+
+    iniFile->beginGroup("FILES");
+    if(iniFile->value("File1", 0) == 0)
+        iniFile->setValue("File1", "");
+    if(iniFile->value("File2", 0) == 0)
+        iniFile->setValue("File2", "");
+    if(iniFile->value("File3", 0) == 0)
+        iniFile->setValue("File3", "");
+    if(iniFile->value("File4", 0) == 0)
+        iniFile->setValue("File4", "");
+    if(iniFile->value("File5", 0) == 0)
+        iniFile->setValue("File5", "");
+
+    QStringList fileNames;
+
+    for(int i = 1; i <= 5; ++i)
+    {
+        QString fileAdress = iniFile->value("File" + QString::number(i)).toString();
+        if(fileAdress != "")
+        {
+            fileNames.append(fileAdress);
+        }
+    }
+
+    iniFile->endGroup();
+
+    // TODO
+    //QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
+    //addToPlaylist(fileNames);
 
     connect(player, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
     connect(player, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
@@ -211,9 +243,18 @@ void Player::receivedData(const QByteArray &data)
     }
 }
 
+void Player::receivedMessage(const QString &message)
+{
+    if(message == "Comport opened")
+    {
+        this->show();
+    }
+}
+
 void Player::open()
 {
     QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
+    qDebug() << fileNames;
     addToPlaylist(fileNames);
 }
 

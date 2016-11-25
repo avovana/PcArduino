@@ -102,6 +102,7 @@ void Terminal::openSerialPort()
         showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
                           .arg(p.name).arg(p.stringBaudRate).arg(p.stringDataBits)
                           .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
+        emit sendState("Comport opened");
     } else {
         QMessageBox::critical(this, tr("Error"), serial->errorString());
 

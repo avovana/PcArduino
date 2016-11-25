@@ -53,7 +53,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     iniFile = new QSettings(QDir::currentPath() + "/config/SerialPort.ini", QSettings::IniFormat, this);
 
     iniFile->beginGroup("COMPORTS");
-    iniFile->setValue("COMPORT", "COM5");
+    if(iniFile->value("NAME", 0) == 0)
+        iniFile->setValue("NAME", "");
     iniFile->endGroup();
 
     intValidator = new QIntValidator(0, 4000000, this);
@@ -183,9 +184,19 @@ void SettingsDialog::fillPortsInfo()
 void SettingsDialog::updateSettings()
 {
     QString comportUI = ui->serialPortInfoListBox->currentText();
+    QString comportINI = iniFile->value("NAME", "").toString();
 
     iniFile->beginGroup("COMPORTS");
-    currentSettings.name = iniFile->value("COMPORT", comportUI).toString();
+
+    if(comportINI != "")
+    {
+        currentSettings.name = iniFile->value(comportINI).toString();
+    }
+    else
+    {
+        currentSettings.name = iniFile->value(comportUI).toString();
+    }
+    //currentSettings.name = iniFile->value("NAME", comportUI).toString();
     iniFile->endGroup();
 
     if (ui->baudRateBox->currentIndex() == 4) {

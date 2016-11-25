@@ -64,6 +64,7 @@ public:
 
 signals:
     void writtenData(const QByteArray &data);
+    void sendState(const QString &message);
 
 private slots:
     void openSerialPort();

@@ -7,7 +7,7 @@ BaseClass::BaseClass(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    terminal.show();
+    //terminal.show();
     player.show();
     connect(&terminal, &Terminal::writtenData, &player, &Player::receivedData);
 }
