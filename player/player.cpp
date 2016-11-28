@@ -168,8 +168,6 @@ Player::Player(QWidget *parent)
 
     fullScreenButton = new QPushButton(tr("FullScreen"), this);
     fullScreenButton->setCheckable(true);
-    pauseInterval_lnedit = new QLineEdit();
-    pauseInterval_lnedit->setValidator(new QRegExpValidator(QRegExp("\\d")));
 
 #ifndef PLAYER_NO_COLOROPTIONS
     colorButton = new QPushButton(tr("Color Options..."), this);
@@ -187,7 +185,6 @@ Player::Player(QWidget *parent)
     controlLayout->addStretch(1);
     controlLayout->addWidget(controls);
     controlLayout->addStretch(1);
-    controlLayout->addWidget(pauseInterval_lnedit);
     controlLayout->addWidget(fullScreenButton);
 #ifndef PLAYER_NO_COLOROPTIONS
     controlLayout->addWidget(colorButton);
