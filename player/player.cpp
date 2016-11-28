@@ -67,6 +67,7 @@ Player::Player(QWidget *parent)
     player->setPlaylist(playlist);
 //! [create-objs]
 
+    //Добавить в плейлист видео файлы, пути к которым прописаны в ini-файле
     iniFile = new QSettings(QDir::currentPath() + "/config/VideoFiles.ini", QSettings::IniFormat, this);
 
     iniFile->beginGroup("FILES");
@@ -93,10 +94,7 @@ Player::Player(QWidget *parent)
     }
 
     iniFile->endGroup();
-
-    // TODO
-    //QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open Files"));
-    //addToPlaylist(fileNames);
+    addToPlaylist(fileNames);
 
     connect(player, SIGNAL(durationChanged(qint64)), SLOT(durationChanged(qint64)));
     connect(player, SIGNAL(positionChanged(qint64)), SLOT(positionChanged(qint64)));
