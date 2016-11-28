@@ -243,6 +243,7 @@ void Player::receivedMessage(const QString &message)
     if(message == "Comport opened")
     {
         this->show();
+        videoWidget->setFullScreen(true);
     }
 }
 
