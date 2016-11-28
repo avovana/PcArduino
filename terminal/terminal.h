@@ -62,12 +62,14 @@ public:
     explicit Terminal(QWidget *parent = 0);
     ~Terminal();
 
+public slots:
+    void openSerialPort();
+
 signals:
     void writtenData(const QByteArray &data);
-    void sendState(const QString &message);
+    void sendTerminalMessage(const QString &message);
 
 private slots:
-    void openSerialPort();
     void closeSerialPort();
     void about();
     void writeData(const QByteArray &data);

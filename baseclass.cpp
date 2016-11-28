@@ -7,9 +7,11 @@ BaseClass::BaseClass(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //terminal.show();
-    player.show();
+    terminal.show();
+    //player.show();
     connect(&terminal, &Terminal::writtenData, &player, &Player::receivedData);
+    connect(&terminal, &Terminal::sendTerminalMessage, &player, &Player::receivedMessage);
+    terminal.openSerialPort();
 }
 
 BaseClass::~BaseClass()
