@@ -13,6 +13,8 @@
 *.Release
 *.Debug
 /build
+/release
+/config
 
 
 

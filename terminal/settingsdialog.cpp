@@ -39,6 +39,7 @@
 #include <QIntValidator>
 #include <QLineEdit>
 #include <QDir>
+#include <QDebug>
 
 QT_USE_NAMESPACE
 
@@ -183,21 +184,25 @@ void SettingsDialog::fillPortsInfo()
 
 void SettingsDialog::updateSettings()
 {
+    // Считать значения COM-портов
+    // Считать 1ый доступный COM-порт
     QString comportUI = ui->serialPortInfoListBox->currentText();
-    QString comportINI = iniFile->value("NAME", "").toString();
-
+    // Считать записанный в ini-файл COM-порт
     iniFile->beginGroup("COMPORTS");
+    QString comportINI = iniFile->value("NAME", "").toString();
+    iniFile->endGroup();
 
+    // Выбрать текущий COM-порт
+    // Приоритет COM-порт из ini-файла
+    // В ini-файле COM-порт был записан?
     if(comportINI != "")
     {
-        currentSettings.name = iniFile->value(comportINI).toString();
+        currentSettings.name = comportINI;
     }
     else
     {
-        currentSettings.name = iniFile->value(comportUI).toString();
+        currentSettings.name = comportUI;
     }
-    //currentSettings.name = iniFile->value("NAME", comportUI).toString();
-    iniFile->endGroup();
 
     if (ui->baudRateBox->currentIndex() == 4) {
         currentSettings.baudRate = ui->baudRateBox->currentText().toInt();
